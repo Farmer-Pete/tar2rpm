@@ -44,9 +44,9 @@ function usage {
     echo "      --url     | -u <url>         A URI where more information on the package can be"
     echo "                                   found. Default: none"
     echo "      --version | -v <version>     The version number. Default: '$VERSION'"
-	echo "      --fileperm | -o <filepermissions>     	The file permission mode. Default: '$FILEPERM'"
-	echo "      --fileuser | -f <fileowner>  			The files' owner. Default: '$FILEUSER'"
-	echo "      --filegroup | -b <filegroup>     		The files' group. Default: '$FILEGROUP'"
+    echo "      --fileperm | -o <fileperms>  The file permission mode. Default: '$FILEPERM'"
+    echo "      --fileuser | -f <fileowner>  The files' owner. Default: '$FILEUSER'"
+    echo "      --filegroup | -b <filegroup> The files' group. Default: '$FILEGROUP'"
     echo "  Misc:"
     echo "      --help Show this message"
     echo "      --print | -p Instead building the RPM, print the .spec file"
@@ -155,18 +155,18 @@ while [ $# -gt 0 ]; do
             URL=$2
             shift
             ;;
-		-o|--fileperm)
-			FILEPERM=$2
-			shift
-			;;
-		-f|--fileuser)
-			FILEUSER=$2
-			shift
-			;;
-		-b|--filegroup)
-			FILEGROUP=$2
-			shift
-			;;
+        -o|--fileperm)
+            FILEPERM=$2
+            shift
+            ;;
+        -f|--fileuser)
+            FILEUSER=$2
+            shift
+            ;;
+        -b|--filegroup)
+            FILEGROUP=$2
+            shift
+            ;;
         -p|--print)
             PRINTSPEC=true
             ;;
