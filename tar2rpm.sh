@@ -92,16 +92,16 @@ function spec {
     echo "/"
     while IFS='/' read -ra pathSegments; do
         path=''
-        for pathSegment in ${pathSegments[@]}; do
+        for pathSegment in "${pathSegments[@]}"; do
             path="$path/$pathSegment"
-            echo $path
+            echo "$path"
         done
     done <<< $TARGET
     while read -ra fileNames; do
-        for fileName in ${fileNames[@]}; do
-            echo %attr\($FILEPERM, $FILEUSER, $FILEGROUP\) $TARGET/$fileName
+        for fileName in "${fileNames[@]}"; do
+            echo %attr\($FILEPERM, $FILEUSER, $FILEGROUP\) "$TARGET/$fileName"
         done
-    done <<< $(tar -tf $TARFILE)
+    done <<< "$(tar -tf $TARFILE)"
 }
 
 if [ $# -eq 0 ]; then
@@ -190,7 +190,7 @@ while [ $# -gt 0 ]; do
                 exit 1
             fi
             # Normalize path
-            TARFILE=$(readlink -m $1)
+            TARFILE=$(readlink -m "$1")
 
             # Do we have a tar file?
             if [ "${TARFILE##*.}" != 'tar' ]; then
@@ -222,7 +222,7 @@ fi
 
 # Auto-populate optional fields
 if [ -z "$NAME" ]; then
-    NAME=$(basename $TARFILE)
+    NAME=$(basename "$TARFILE")
     NAME=${NAME%.*}
 fi
 if [ -z "$SUMMARY" ]; then
@@ -239,7 +239,7 @@ else
     # Build the RPM
     spec > /tmp/tar2rpm-$$.spec
     rpmbuild -bb /tmp/tar2rpm-$$.spec > /tmp/tar2rpm-$$.log 2>&1
-    cat /tmp/tar2rpm-$$.log | grep -i "Wrote:.*$NAME-$VERSION-$RELEASE.*rpm"
+    grep -i "Wrote:.*$NAME-$VERSION-$RELEASE.*rpm" /tmp/tar2rpm-$$.log
     if [ $? -gt 0 ]; then
         echo "ERROR: RPM build failed. Check log: /tmp/tar2rpm-$$.log Spec file: /tmp/tar2rpm-$$.spec"
         exit 1
