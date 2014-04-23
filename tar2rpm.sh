@@ -23,6 +23,7 @@ VERSION='1'
 FILEPERM='-'
 FILEUSER='root'
 FILEGROUP='root'
+AUTODEPS=false
 
 function usage {
     echo "Usage: $0 [option1 ... optionN] <TARFILE.tar>"
@@ -47,6 +48,7 @@ function usage {
     echo "      --fileperm | -o <fileperms>  The file permission mode. Default: '$FILEPERM'"
     echo "      --fileuser | -f <fileowner>  The files' owner. Default: '$FILEUSER'"
     echo "      --filegroup | -b <filegroup> The files' group. Default: '$FILEGROUP'"
+    echo "      --autodeps | -A              Enable automatic dependency processing. Disabled by default"
     echo "  Misc:"
     echo "      --help Show this message"
     echo "      --print | -p Instead building the RPM, print the .spec file"
@@ -61,6 +63,9 @@ function spec {
     echo "Release: $RELEASE"
     echo "Prefix: $TARGET"
     echo "BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-$(whoami)-%(%{__id_u} -n)"
+    if [ $AUTODEPS == false ]; then
+        echo "AutoReqProv: no"
+    fi
     if [ -n "$ARCH" ]; then
         echo "BuildArch: $ARCH"
     elif [ -n "$URL" ]; then
@@ -166,6 +171,9 @@ while [ $# -gt 0 ]; do
         -b|--filegroup)
             FILEGROUP=$2
             shift
+            ;;
+        -A|--autodeps)
+            AUTODEPS=true
             ;;
         -p|--print)
             PRINTSPEC=true
