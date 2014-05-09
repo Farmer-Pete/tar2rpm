@@ -18,7 +18,7 @@ Define a working directory for `rpmbuild`
 :   edit `~/.rpmmacros` and define `%_topdir` to be your working directory. The syntax (all one line) is: `%_topdir <WORKING_DIRECTORY>`
 
 
-[Arch]: wp:Arch_Linux
+[Arch]: http://en.wikipedia.org/wiki/Arch_Linux
 [AUR]: http://aur.archlinux.org/
 [beecrypt]: http://aur.archlinux.org/packages.php?ID=16387
 
@@ -41,7 +41,7 @@ Same as above, but now you want to specify a summary, version number and release
 
 ### Spec building usage ###
 
-Same as above, but instead of actually building the RPM, output a SPEC file so you can customize it before building<
+Same as above, but instead of actually building the RPM, output a SPEC file so you can customize it before building
 
     tar2rpm.sh my_project.tar --target /home/httpd/myProject
                               --summary "LinuxLefty core web application"
