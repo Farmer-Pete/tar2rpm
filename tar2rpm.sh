@@ -99,7 +99,7 @@ function spec {
     done <<< $TARGET
     while IFS= read -ra fileNames; do
         for fileName in "${fileNames[@]}"; do
-            echo %attr\($FILEPERM, $FILEUSER, $FILEGROUP\) "$TARGET/$fileName"
+            echo %attr\($FILEPERM, $FILEUSER, $FILEGROUP\) \""$TARGET/${fileName#./}"\"
         done
     done <<< "$(tar -tf $TARFILE)"
 }
