@@ -97,7 +97,7 @@ function spec {
             echo "$path"
         done
     done <<< $TARGET
-    while read -ra fileNames; do
+    while IFS= read -ra fileNames; do
         for fileName in "${fileNames[@]}"; do
             echo %attr\($FILEPERM, $FILEUSER, $FILEGROUP\) "$TARGET/$fileName"
         done
